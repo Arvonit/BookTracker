@@ -8,5 +8,11 @@ namespace BookTracker.Models
         public string Username { get; set; }
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        public User(string username, string password)
+        {
+            Username = username;
+            Password = password;
+        }
     }
 }
