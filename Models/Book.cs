@@ -18,7 +18,7 @@ namespace BookTracker.Models
         
         [MaxLength(200)]
         public string? Author { get; set; }
-        
+
         [MaxLength(13)]
         public string? Isbn { get; set; }
         
@@ -36,9 +36,31 @@ namespace BookTracker.Models
         
         // public Bookshelf Bookshelf { get; set; }
 
-        public Book(string title)
+        public Book(
+            int id,
+            string title,
+            string? author = null,
+            string? isbn = null,
+            string? publisher = null,
+            DateTime? publicationDate = null
+        ) : this(title, author, isbn, publisher, publicationDate)
+        {
+            Id = id;
+        }
+        
+        public Book(
+            string title,
+            string? author = null,
+            string? isbn = null,
+            string? publisher = null,
+            DateTime? publicationDate = null
+        )
         {
             Title = title;
-        }
+            Author = author;
+            Isbn = isbn;
+            Publisher = publisher;
+            PublicationDate = publicationDate;
+        }        
     }
 }
