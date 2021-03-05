@@ -30,7 +30,7 @@ namespace BookTracker.Models
         /// time.
         /// </remarks>
         [Column(TypeName = "date")] 
-        public DateTime? YearPublished { get; set; }
+        public DateTime? PublicationDate { get; set; }
         
         // public int BookshelfId { get; set; }
         
