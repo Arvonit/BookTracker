@@ -75,34 +75,9 @@ namespace BookTracker.Controllers
                 return BadRequest();
             }
 
-            // TODO: Remove this
-            var originalBook = context.Books.Find(id);
-            if (originalBook == null)
-            {
-                return BadRequest();
-            }
-
-            // If book has a DateCreated or DateModified of MinValue, then we can assume it was not
-            // included in the PUT request.
-            if (book.DateCreated.Equals(DateTimeOffset.MinValue) || 
-                book.DateModified.Equals(DateTimeOffset.MinValue))
-            {
-                return BadRequest("You forgot the damn timestamps!");
-            }
-
-            // We need to do this because Entity Framework is stupid and sets the DateCreated
-            // to the year 1 when not included in request.
-            book.DateCreated = originalBook.DateCreated;
-            // TODO: Remove this and add a database trigger for it
-            book.DateModified = DateTimeOffset.Now;
-            
-            // Tell Entity Framework we are done tracking the original book.
-            context.Entry(originalBook).State = EntityState.Detached;
-            
             // Tell Entity Framework that we have modified the book so that we can persist the
             // changes.
             context.Attach(book).State = EntityState.Modified;
-            
             context.SaveChanges();
 
             return Ok(book);

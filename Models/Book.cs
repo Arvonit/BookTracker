@@ -31,22 +31,6 @@ namespace BookTracker.Models
         /// </remarks>
         [Column(TypeName = "date")] 
         public DateTime? YearPublished { get; set; }
-
-        /// <summary>
-        /// Timestamp that is automatically created when a book is inserted into the database.
-        /// </summary>
-        ///
-        /// <remarks>
-        /// We are using <c>DateTimeOffset</c> because we want to store this as <c>timestampz</c>
-        /// in the database.
-        /// </remarks>
-        public DateTimeOffset DateCreated { get; set; }
-        
-        /// <summary>
-        /// Timestamp that is automatically updated when book is inserted or updated in the
-        /// database.
-        /// </summary>
-        public DateTimeOffset? DateModified { get; set; }
         
         // public int BookshelfId { get; set; }
         
