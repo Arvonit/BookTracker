@@ -15,10 +15,10 @@ namespace BookTracker.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     title = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    author = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    author = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     isbn = table.Column<string>(type: "character varying(13)", maxLength: 13, nullable: true),
-                    publisher = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
-                    year_published = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
+                    publisher = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    year_published = table.Column<DateTime>(type: "date", nullable: true)
                 },
                 constraints: table =>
                 {

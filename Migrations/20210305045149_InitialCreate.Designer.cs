@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookTracker.Migrations
 {
     [DbContext(typeof(BookTrackerContext))]
-    [Migration("20210302204343_InitialCreate")]
+    [Migration("20210305045149_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,8 +30,8 @@ namespace BookTracker.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Author")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
                         .HasColumnName("author");
 
                     b.Property<string>("Isbn")
@@ -40,8 +40,8 @@ namespace BookTracker.Migrations
                         .HasColumnName("isbn");
 
                     b.Property<string>("Publisher")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
                         .HasColumnName("publisher");
 
                     b.Property<string>("Title")
@@ -51,7 +51,7 @@ namespace BookTracker.Migrations
                         .HasColumnName("title");
 
                     b.Property<DateTime?>("YearPublished")
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("date")
                         .HasColumnName("year_published");
 
                     b.HasKey("Id")

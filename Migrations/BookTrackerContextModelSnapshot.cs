@@ -35,12 +35,14 @@ namespace BookTracker.Migrations
                     b.Property<DateTimeOffset>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("date_created");
+                        .HasColumnName("date_created")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTimeOffset>("DateModified")
-                        .ValueGeneratedOnAddOrUpdate()
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("date_modified");
+                        .HasColumnName("date_modified")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Isbn")
                         .HasMaxLength(13)

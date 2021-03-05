@@ -21,7 +21,7 @@ namespace BookTracker
         public void ConfigureServices(IServiceCollection services)
         {
 
-            // services.AddControllers();
+            services.AddControllers();
             services.AddDbContext<BookTrackerContext>(options =>
             {
                 options.UseNpgsql(Configuration.GetConnectionString("BookTrackerContext"));
@@ -43,10 +43,10 @@ namespace BookTracker
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
-            // app.UseEndpoints(endpoints =>
-            // {
-            //     endpoints.MapControllers();
-            // });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

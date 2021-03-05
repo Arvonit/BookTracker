@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookTracker.Migrations
 {
     [DbContext(typeof(BookTrackerContext))]
-    [Migration("20210302225101_FixLengthAndAddTimestampsForBook")]
-    partial class FixLengthAndAddTimestampsForBook
+    [Migration("20210305052150_AddTimestamps")]
+    partial class AddTimestamps
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,12 +37,14 @@ namespace BookTracker.Migrations
                     b.Property<DateTimeOffset>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("date_created");
+                        .HasColumnName("date_created")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTimeOffset>("DateModified")
-                        .ValueGeneratedOnAddOrUpdate()
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("date_modified");
+                        .HasColumnName("date_modified")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Isbn")
                         .HasMaxLength(13)

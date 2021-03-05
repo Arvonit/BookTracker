@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -30,7 +31,7 @@ namespace BookTracker.Models
         /// </remarks>
         [Column(TypeName = "date")] 
         public DateTime? YearPublished { get; set; }
-        
+
         /// <summary>
         /// Timestamp that is automatically created when a book is inserted into the database.
         /// </summary>
@@ -39,15 +40,13 @@ namespace BookTracker.Models
         /// We are using <c>DateTimeOffset</c> because we want to store this as <c>timestampz</c>
         /// in the database.
         /// </remarks>
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTimeOffset DateCreated { get; set; }
         
         /// <summary>
         /// Timestamp that is automatically updated when book is inserted or updated in the
         /// database.
         /// </summary>
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTimeOffset DateModified { get; set; }
+        public DateTimeOffset? DateModified { get; set; }
         
         // public int BookshelfId { get; set; }
         
