@@ -1,3 +1,5 @@
+using System;
+using System.Text.Json.Serialization;
 using BookTracker.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,10 +24,15 @@ namespace BookTracker
         {
 
             services.AddControllers();
+            //     .AddJsonOptions(options =>
+            //     {
+            //         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+            //     });
             services.AddDbContext<BookTrackerContext>(options =>
             {
                 options.UseNpgsql(Configuration.GetConnectionString("BookTrackerContext"));
                 options.UseSnakeCaseNamingConvention();
+                options.EnableSensitiveDataLogging();
             });
         }
 

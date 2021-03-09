@@ -6,8 +6,8 @@ namespace BookTracker.Data
 {
     public class BookTrackerContext : DbContext
     {
-        public DbSet<Book> Books { get; set; }
-        // public DbSet<Bookshelf> Bookshelves { get; set; }
+        public DbSet<Book> Books => Set<Book>();
+        public DbSet<Bookshelf> Bookshelves => Set<Bookshelf>();
         
         public BookTrackerContext(DbContextOptions<BookTrackerContext> options) : base(options)
         {
@@ -15,9 +15,17 @@ namespace BookTracker.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Add Bookshelf seed data
+            modelBuilder.Entity<Bookshelf>().HasData(
+                new Bookshelf(1, "Want to Read"),
+                new Bookshelf(2, "Currently Reading"),
+                new Bookshelf(3, "Read")
+            );
+            
             // Add Book seed data
             modelBuilder.Entity<Book>().HasData(
                 new Book(
+                    1,
                     1,
                     "The Adventures of Huckleberry Finn",
                     "Mark Twain",
@@ -27,6 +35,7 @@ namespace BookTracker.Data
                 ),
                 new Book(
                     2,
+                    2,
                     "To Kill a Mockingbird",
                     "Harper Lee",
                     "0123456789",
@@ -34,6 +43,7 @@ namespace BookTracker.Data
                     DateTime.Parse("1960-07-11")
                 ),
                 new Book(
+                    3,
                     3,
                     "Programming Windows",
                     "Charles Petzold",

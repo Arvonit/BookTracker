@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookTracker.Controllers
 {
+    // TODO: Replace model with DTO
     // TODO: Make everything async
     [Route("api/[controller]")]
     [ApiController]
@@ -24,7 +25,7 @@ namespace BookTracker.Controllers
         /// Gets all the books from the database.
         /// </summary>
         [HttpGet]
-        public IEnumerable<Book> GetBooks()
+        public ActionResult<IEnumerable<Book>> GetBooks()
         {
             return context.Books
                 .ToList();
@@ -37,8 +38,7 @@ namespace BookTracker.Controllers
         public ActionResult<Book> GetBook(int id)
         {
             var book = context.Books.Find(id);
-            
-            if (book == null)
+            if (book is null)
             {
                 return NotFound();
             }
@@ -49,8 +49,6 @@ namespace BookTracker.Controllers
         /// <summary>
         /// Adds a book.
         /// </summary>
-        ///
-        /// TODO: Protect from overposting attacks (https://go.microsoft.com/fwlink/?linkid=2123754)
         [HttpPost]
         public ActionResult<Book> AddBook(Book book)
         {
@@ -70,6 +68,7 @@ namespace BookTracker.Controllers
         [HttpPut("{id}")]
         public ActionResult<Book> UpdateBook(int id, Book book)
         {
+            Console.WriteLine("We started processing this book.");
             if (id != book.Id)
             {
                 return BadRequest();

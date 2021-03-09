@@ -1,7 +1,8 @@
 using System;
-using System.ComponentModel;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace BookTracker.Models
 {
@@ -11,7 +12,7 @@ namespace BookTracker.Models
         /// Any variable with the name `Id` or `TypeId` is automatically configured as the primary
         /// key.
         /// </remarks>
-        public int Id { get; set; }
+        public int Id { get; private set; }
         
         [MaxLength(100)]
         public string Title { get; set; }
@@ -32,12 +33,14 @@ namespace BookTracker.Models
         [Column(TypeName = "date")] 
         public DateTime? PublicationDate { get; set; }
         
-        // public int BookshelfId { get; set; }
+        public int BookshelfId { get; set; }
         
-        // public Bookshelf Bookshelf { get; set; }
+        [JsonIgnore]
+        public Bookshelf Bookshelf { get; set; }
 
         public Book(
             int id,
+            int bookshelfId,
             string title,
             string? author = null,
             string? isbn = null,
@@ -46,6 +49,7 @@ namespace BookTracker.Models
         ) : this(title, author, isbn, publisher, publicationDate)
         {
             Id = id;
+            BookshelfId = bookshelfId;
         }
         
         public Book(
@@ -61,6 +65,32 @@ namespace BookTracker.Models
             Isbn = isbn;
             Publisher = publisher;
             PublicationDate = publicationDate;
-        }        
+            // Bookshelf = bookshelf;
+        }
+
+        public BookDto ToDto()
+        {
+            return new BookDto(
+                Id,
+                BookshelfId,
+                Bookshelf.Name,
+                Title,
+                Author,
+                Isbn,
+                Publisher,
+                PublicationDate
+            );
+        }
+
+        // TODO: Write validation
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            throw new NotImplementedException();
+        }
+        
+        private ValidationResult ValidateIsbn()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
