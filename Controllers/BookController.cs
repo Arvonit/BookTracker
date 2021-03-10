@@ -25,9 +25,10 @@ namespace BookTracker.Controllers
         /// Gets all the books from the database.
         /// </summary>
         [HttpGet]
-        public ActionResult<IEnumerable<Book>> GetBooks()
+        public ActionResult<IEnumerable<BookDto>> GetBooks()
         {
             return context.Books
+                .Select(book => book.ToDto())
                 .ToList();
         }
 
@@ -35,7 +36,7 @@ namespace BookTracker.Controllers
         /// Gets a book based on its id.
         /// </summary>
         [HttpGet("{id}")]
-        public ActionResult<Book> GetBook(int id)
+        public ActionResult<BookDto> GetBook(int id)
         {
             var book = context.Books.Find(id);
             if (book is null)
@@ -43,15 +44,16 @@ namespace BookTracker.Controllers
                 return NotFound();
             }
 
-            return Ok(book);
+            return Ok(book.ToDto());
         }
 
         /// <summary>
         /// Adds a book.
         /// </summary>
         [HttpPost]
-        public ActionResult<Book> AddBook(Book book)
+        public ActionResult<BookDto> AddBook(BookDto bookDto)
         {
+            var book = bookDto.ToModel();
             context.Books.Add(book);
             context.SaveChanges();
 
@@ -66,20 +68,21 @@ namespace BookTracker.Controllers
         /// Update a book with the given id and updated book object.
         /// </summary>
         [HttpPut("{id}")]
-        public ActionResult<Book> UpdateBook(int id, Book book)
+        public ActionResult<BookDto> UpdateBook(int id, BookDto bookDto)
         {
             Console.WriteLine("We started processing this book.");
-            if (id != book.Id)
+            if (id != bookDto.Id)
             {
                 return BadRequest();
             }
 
             // Tell Entity Framework that we have modified the book so that we can persist the
             // changes.
+            var book = bookDto.ToModel();
             context.Attach(book).State = EntityState.Modified;
             context.SaveChanges();
 
-            return Ok(book);
+            return Ok(bookDto);
         }
 
         /// <summary>
@@ -89,7 +92,7 @@ namespace BookTracker.Controllers
         public ActionResult RemoveBook(int id)
         {
             var book = context.Books.Find(id);
-            if (book == null)
+            if (book is null)
             {
                 return NotFound();
             }

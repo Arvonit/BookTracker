@@ -34,25 +34,28 @@ namespace BookTracker.Models
         public DateTime? PublicationDate { get; set; }
         
         public int BookshelfId { get; set; }
-        
-        [JsonIgnore]
+
         public Bookshelf Bookshelf { get; set; }
 
         public Book(
-            int id,
+            int? id,
             int bookshelfId,
             string title,
             string? author = null,
             string? isbn = null,
             string? publisher = null,
             DateTime? publicationDate = null
-        ) : this(title, author, isbn, publisher, publicationDate)
+        ) : this(bookshelfId, title, author, isbn, publisher, publicationDate)
         {
-            Id = id;
-            BookshelfId = bookshelfId;
+            // TODO: Refactor code
+            if (id.HasValue)
+            {
+                Id = id.Value;
+            }
         }
         
         public Book(
+            int bookshelfId,
             string title,
             string? author = null,
             string? isbn = null,
@@ -65,7 +68,7 @@ namespace BookTracker.Models
             Isbn = isbn;
             Publisher = publisher;
             PublicationDate = publicationDate;
-            // Bookshelf = bookshelf;
+            BookshelfId = bookshelfId;
         }
 
         public BookDto ToDto()
@@ -73,13 +76,16 @@ namespace BookTracker.Models
             return new BookDto(
                 Id,
                 BookshelfId,
-                Bookshelf.Name,
                 Title,
                 Author,
                 Isbn,
                 Publisher,
                 PublicationDate
             );
+        }
+
+        public Book()
+        {
         }
 
         // TODO: Write validation
@@ -91,6 +97,12 @@ namespace BookTracker.Models
         private ValidationResult ValidateIsbn()
         {
             throw new NotImplementedException();
+        }
+        
+        public override string ToString()
+        {
+            return
+                $"Book(Id: {Id}, BookshelfId: {BookshelfId}, Title: {Title}, Author: {Author})";
         }
     }
 }
