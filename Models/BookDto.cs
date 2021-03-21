@@ -36,14 +36,21 @@ namespace BookTracker.Models
 
         public Book ToModel()
         {
-            return new Book(Id, BookshelfId, Title, Author, Isbn, Publisher, PublicationDate);
+            if (Id is int id)
+            {
+                return new Book(id, BookshelfId, Title, Author, Isbn, Publisher, PublicationDate);
+            }
+            else
+            {
+                return new Book(BookshelfId, Title, Author, Isbn, Publisher, PublicationDate);
+            }
         }
 
-        // TODO: Finish
         public override string ToString()
         {
             return
-                $"BookDto(Id: {Id}, BookshelfId: {BookshelfId}, Title: {Title}, Author: {Author})";
+                $"BookDto(ID: {Id}, BookshelfId: {BookshelfId}, Title: {Title}, Author: {Author}" +
+                $"ISBN: {Isbn}, Publisher: {Publisher}, PublicationDate: {PublicationDate})";
         }
     }
 }

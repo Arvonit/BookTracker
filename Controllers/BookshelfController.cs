@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using BookTracker.Data;
 using BookTracker.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookTracker.Controllers
 {
+    [EnableCors("TestPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class BookshelfController : ControllerBase

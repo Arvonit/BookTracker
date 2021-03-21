@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 
 namespace BookTracker.Models
 {
@@ -35,10 +34,10 @@ namespace BookTracker.Models
         
         public int BookshelfId { get; set; }
 
-        public Bookshelf Bookshelf { get; set; }
+        public Bookshelf Bookshelf { get; set; } = null!;
 
         public Book(
-            int? id,
+            int id,
             int bookshelfId,
             string title,
             string? author = null,
@@ -47,13 +46,11 @@ namespace BookTracker.Models
             DateTime? publicationDate = null
         ) : this(bookshelfId, title, author, isbn, publisher, publicationDate)
         {
-            // TODO: Refactor code
-            if (id.HasValue)
-            {
-                Id = id.Value;
-            }
+            Id = id;
         }
         
+        // We need to have constructors because C# does not support checking block initialization to
+        // see if non-nullable properties were initialized
         public Book(
             int bookshelfId,
             string title,
@@ -82,10 +79,6 @@ namespace BookTracker.Models
                 Publisher,
                 PublicationDate
             );
-        }
-
-        public Book()
-        {
         }
 
         // TODO: Write validation

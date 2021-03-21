@@ -28,6 +28,17 @@ namespace BookTracker
             //     {
             //         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
             //     });
+            // TODO: Fix
+            services.AddCors(options =>
+            {
+                options.AddPolicy("TestPolicy",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:8080")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
             services.AddDbContext<BookTrackerContext>(options =>
             {
                 options.UseNpgsql(Configuration.GetConnectionString("BookTrackerContext"));
@@ -49,6 +60,7 @@ namespace BookTracker
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseCors();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

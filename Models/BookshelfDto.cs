@@ -8,11 +8,11 @@ namespace BookTracker.Models
     /// </summary>
     public class BookshelfDto
     {
-        public int Id { get; private set; }
+        public int? Id { get; private set; }
         public string Name { get; set; }
         public ICollection<BookDto> Books { get; }
 
-        public BookshelfDto(int id, string name, ICollection<BookDto>? books = null)
+        public BookshelfDto(int? id, string name, ICollection<BookDto>? books = null)
         {
             Id = id;
             Name = name;
@@ -22,7 +22,14 @@ namespace BookTracker.Models
         public Bookshelf ToModel()
         {
             var books = Books.Select(bookDto => bookDto.ToModel()).ToList();
-            return new Bookshelf(Id, Name, books);
+            if (Id is int id)
+            {
+                return new Bookshelf(id, Name, books);
+            }
+            else
+            {
+                return new Bookshelf(Name, books);
+            }
         }
     }
 }
