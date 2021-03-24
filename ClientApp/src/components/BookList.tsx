@@ -1,4 +1,4 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table"
+import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table';
 
 function BookList() {
   return (
@@ -35,7 +35,7 @@ function BookList() {
         </Tr>
       </Tbody>
     </Table>
-  )
+  );
 }
 
 export default BookList;

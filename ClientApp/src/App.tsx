@@ -1,12 +1,11 @@
+import { useState } from 'react';
 import { Box, Center, Container } from '@chakra-ui/layout';
 import AddBook from './components/AddBook';
 import BookList from './components/BookList';
-import { useState } from 'react';
 import Header from './components/Header';
 import Book from './models/book';
 
 function App() {
-  // State variables
   const [showAddBook, setShowAddBook] = useState(false);
   let books = new Array<Book>();
 
@@ -24,11 +23,11 @@ function App() {
         />
       </Box>
 
-      {showAddBook &&
+      {showAddBook && (
         <Box>
           <AddBook />
         </Box>
-      }
+      )}
 
       <Box paddingTop={10}>
         <Center>

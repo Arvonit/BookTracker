@@ -1,4 +1,4 @@
-import Bookshelf from "./bookshelf";
+import Bookshelf from './bookshelf';
 
 class Book {
   id: number;
